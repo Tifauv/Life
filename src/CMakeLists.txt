@@ -2,6 +2,10 @@
 qt_add_executable( Life
     World.cpp
     PatternsLibrary.cpp
+    Engine.cpp
+    StandardEngine.cpp
+    WorldView.cpp
+    MainWindow.cpp
     main.cpp
 )
 
