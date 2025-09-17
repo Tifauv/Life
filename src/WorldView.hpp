@@ -12,6 +12,9 @@ class WorldView : public QWidget {
 public:
 	explicit WorldView(std::shared_ptr<World> p_world, QWidget* p_parent = nullptr);
 
+	bool hasHeightForWidth() const override;
+	int heightForWidth(int p_width) const override;
+
 protected:
 	void paintEvent(QPaintEvent* p_event) override;
 

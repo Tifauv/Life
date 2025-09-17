@@ -3,7 +3,9 @@
 
 #include "World.hpp"
 #include "PatternsLibrary.hpp"
-#include "StandardEngine.hpp"
+#include "BasicEngine.hpp"
+#include "TiledEngine.hpp"
+#include "StandardCellRules.hpp"
 
 #include "MainWindow.hpp"
 
@@ -12,22 +14,25 @@ int main(int p_argc, char* p_argv[]) {
 	QApplication app(p_argc, p_argv);
 
 	// Create the world
-	std::shared_ptr<World> world = std::make_shared<World>(1024, 1024);
+	std::shared_ptr<World> world = std::make_shared<World>(512, 512);
 	world->init();
-	PatternsLibrary library;
-	library.drawGliderAt(world, 2, 2);
+	for (uint i=2; i<world->width()-5; i+=8)
+		PatternsLibrary::drawGliderAt(world, i, 2);
 	world->swap();
 
 	// Create the engine
-	StandardEngine engine(world);
+	StandardCellRules rules;
+	//BasicEngine engine(world, rules);
+	TiledEngine engine(world, rules);
+	engine.setTileSize(32);
 
 	// Create the main window & layout
 	MainWindow mainWindow(world);
 	mainWindow.resize(1024, 1024);
 
 	QObject::connect(&mainWindow, &MainWindow::next,
-					 &engine,     &Engine::next);
-	QObject::connect(&engine,     &StandardEngine::finished,
+					 &engine,     &Engine::run);
+	QObject::connect(&engine,     &Engine::finished,
 					 &mainWindow, &MainWindow::stepFinished);
 
 	mainWindow.show();

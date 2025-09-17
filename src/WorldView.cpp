@@ -12,6 +12,16 @@ m_world(p_world) {
 }
 
 
+bool WorldView::hasHeightForWidth() const {
+    return true;
+}
+
+
+int WorldView::heightForWidth(int p_width) const {
+    return p_width;
+}
+
+
 void WorldView::paintEvent(QPaintEvent* p_event) {
     QPainter painter(this);
     painter.drawImage(
