@@ -19,12 +19,12 @@ CellRules& Engine::cellRules() const {
 
 
 void Engine::run() {
-    qDebug() << "Starting engine pass...";
+    //qDebug() << "Starting engine pass...";
     processWorld(*m_world);
 
-    qDebug() << "Swapping...";
+    //qDebug() << "Swapping...";
     m_world->swap();
 
-    qDebug() << "Engine pass finished.";
+    //qDebug() << "Engine pass finished.";
     emit finished();
 }

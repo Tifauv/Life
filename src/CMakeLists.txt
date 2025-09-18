@@ -7,6 +7,7 @@ qt_add_executable( Life
     Engine.cpp
     BasicEngine.cpp
     TiledEngine.cpp
+    ThreadedTiledEngine.cpp
     WorldView.cpp
     MainWindow.cpp
     main.cpp

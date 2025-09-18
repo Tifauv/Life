@@ -12,6 +12,16 @@ m_world(p_world) {
 }
 
 
+QSize WorldView::minimumSizeHint() const {
+    return m_world->size();
+}
+
+
+QSize WorldView::sizeHint() const {
+    return m_world->size();
+}
+
+
 bool WorldView::hasHeightForWidth() const {
     return true;
 }

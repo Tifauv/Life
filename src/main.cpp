@@ -3,8 +3,7 @@
 
 #include "World.hpp"
 #include "PatternsLibrary.hpp"
-#include "BasicEngine.hpp"
-#include "TiledEngine.hpp"
+#include "ThreadedTiledEngine.hpp"
 #include "StandardCellRules.hpp"
 
 #include "MainWindow.hpp"
@@ -22,15 +21,14 @@ int main(int p_argc, char* p_argv[]) {
 
 	// Create the engine
 	StandardCellRules rules;
-	//BasicEngine engine(world, rules);
-	TiledEngine engine(world, rules);
+	ThreadedTiledEngine engine(world, rules);
 	engine.setTileSize(32);
 
 	// Create the main window & layout
 	MainWindow mainWindow(world);
-	mainWindow.resize(1024, 1024);
+	//mainWindow.resize(1024, 1024);
 
-	QObject::connect(&mainWindow, &MainWindow::next,
+	QObject::connect(&mainWindow, &MainWindow::step,
 					 &engine,     &Engine::run);
 	QObject::connect(&engine,     &Engine::finished,
 					 &mainWindow, &MainWindow::stepFinished);

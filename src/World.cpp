@@ -19,6 +19,11 @@ World(QSize(p_width, p_height)) {
 }
 
 
+const QSize World::size() const {
+    return m_size;
+}
+
+
 int World::width() const {
     return m_size.width();
 }

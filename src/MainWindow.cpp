@@ -5,7 +5,11 @@ QWidget() {
     setWindowTitle("Life");
 
     // Actions row
-    m_nextStepBtn = new QPushButton("&Next step >");
+    m_playBtn = new QPushButton(">");
+    m_playBtn->setToolTip("Play");
+    
+    m_stepBtn = new QPushButton(">|");
+    m_stepBtn->setToolTip("One step");
 
     QLabel* speedLbl = new QLabel("Speed:");
 
@@ -19,7 +23,8 @@ QWidget() {
     m_speedSld->setTickInterval(50);
 
     QHBoxLayout* actionsLayout = new QHBoxLayout;
-    actionsLayout->addWidget(m_nextStepBtn);
+    actionsLayout->addWidget(m_playBtn);
+    actionsLayout->addWidget(m_stepBtn);
     actionsLayout->addWidget(speedLbl);
     actionsLayout->addWidget(m_speedSld);
 
@@ -28,20 +33,73 @@ QWidget() {
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addLayout(actionsLayout);
-    mainLayout->addWidget(m_worldView);
+    mainLayout->addWidget(m_worldView, 0, Qt::AlignCenter);
     setLayout(mainLayout);
 
-    QObject::connect(m_nextStepBtn, &QPushButton::clicked,
-                     this,          &MainWindow::sendNext);
+    QObject::connect(m_playBtn, &QPushButton::clicked,
+                     this,      &MainWindow::start);
+
+    QObject::connect(m_stepBtn, &QPushButton::clicked,
+                     this,      &MainWindow::startStep);
+
+    m_beat = new QTimer(this);
+    QObject::connect(m_beat,    &QTimer::timeout,
+                     this,      &MainWindow::emitStep);
+    QObject::connect(m_speedSld, &QSlider::valueChanged,
+                     this,       &MainWindow::updateBeat);
 }
 
 
-void MainWindow::sendNext() {
-    m_nextStepBtn->setDisabled(true);
-    emit next();
+void MainWindow::start() {
+    QObject::disconnect(m_playBtn, &QPushButton::clicked,
+                        this,      &MainWindow::start);
+
+    m_stepBtn->setDisabled(true);
+    m_playBtn->setText("||");
+    m_playBtn->setToolTip("Pause");
+
+    QObject::connect(m_playBtn, &QPushButton::clicked,
+                     this,      &MainWindow::pause);
+    
+    m_beat->start(m_speedSld->value());
+}
+
+
+void MainWindow::pause() {
+    m_beat->stop();
+    
+    QObject::disconnect(m_playBtn, &QPushButton::clicked,
+                        this,      &MainWindow::pause);
+
+    m_playBtn->setText(">");
+    m_playBtn->setToolTip("Play");
+    m_stepBtn->setDisabled(false);
+ 
+    QObject::connect(m_playBtn, &QPushButton::clicked,
+                     this,      &MainWindow::start);
+}
+
+
+void MainWindow::startStep() {
+    m_playBtn->setDisabled(true);
+    m_stepBtn->setDisabled(true);
+    emitStep();
+}
+
+
+void MainWindow::updateBeat(int p_delay) {
+    m_beat->setInterval( (p_delay == 0 ? 1 : p_delay) );
+}
+
+
+void MainWindow::emitStep() {
+    emit step();
 }
 
 
 void MainWindow::stepFinished() {
-    m_nextStepBtn->setDisabled(false);
+    if (!m_beat->isActive()) {
+        m_stepBtn->setDisabled(false);
+        m_playBtn->setDisabled(false);
+    }
 }

@@ -11,6 +11,7 @@ public:
 	explicit World(const QSize p_size);
 	explicit World(int p_width, int p_height);
 
+	const QSize size() const;
 	int width() const;
 	int height() const;
 	const QImage& frontImage() const;

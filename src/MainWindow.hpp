@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSlider>
+#include <QTimer>
 #include <QWidget>
 
 #include "WorldView.hpp"
@@ -21,14 +22,24 @@ public slots:
     void stepFinished();
 
 signals:
-    void next();
+    void step();
 
 protected slots:
-    void sendNext();
+    void start();
+    void pause();
+    
+    void startStep();
+    
+    void updateBeat(int p_delay);
 
+protected:
+    void emitStep();
+    
 private:
-    QPushButton* m_nextStepBtn;
+    QPushButton* m_playBtn;  
+    QPushButton* m_stepBtn;
     QSlider*     m_speedSld;
+    QTimer*      m_beat;
     WorldView*   m_worldView;
 };
 

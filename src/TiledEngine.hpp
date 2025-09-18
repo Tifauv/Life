@@ -13,20 +13,23 @@ class TiledEngine : public Engine {
 
 public:
     explicit TiledEngine(std::shared_ptr<World> p_world, CellRules& p_rules);
-    ~TiledEngine() {}
+    virtual ~TiledEngine() {}
 
     uint tileSize() const;
     void setTileSize(uint p_size);
 
 protected:
     void prepareTiles(int p_worldWidth, int p_worldHeight);
+    
+    const QList<QRect>& tiles() const;
 
-    void processWorld(World&) override;
+    virtual void processWorld(World&) override;
     virtual void processTile(World&, const QRect& p_tile);
 
 private:
     uint m_tileSize;
     QList<QRect> m_tiles;
 };
+Q_DECLARE_INTERFACE(TiledEngine, "TiledEngine")
 
 #endif
