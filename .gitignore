@@ -1,2 +1,7 @@
-# Ignore the built directory
+# Git
+.git-credentials
+# CMake
 build
+# Kate
+.kateproject.build
+compile_commands.json
