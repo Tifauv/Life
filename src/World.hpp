@@ -19,6 +19,10 @@ public:
 	void init();
 	void swap();
 
+	bool wasAliveAt(int p_x, int p_y) const;
+	bool wasDeadAt(int p_x, int p_y) const;
+	bool changedAt(int p_x, int p_y) const;
+	
 	void copyCellAt(int p_x, int p_y);
 	void setAliveAt(int p_x, int p_y);
 	void setDeadAt(int p_x, int p_y);
@@ -36,7 +40,7 @@ private:
 	QImage* m_backImage;
 
 	const int COLOR_ALIVE = 0;
-	const int COLOR_DEAD = 1;
+	const int COLOR_DEAD  = 1;
 };
 
 #endif

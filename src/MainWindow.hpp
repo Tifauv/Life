@@ -19,6 +19,7 @@ public:
     explicit MainWindow(std::shared_ptr<World> p_world);
 
 public slots:
+    void detectStop(uint p_changes);
     void stepFinished();
 
 signals:

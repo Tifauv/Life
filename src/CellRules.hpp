@@ -13,7 +13,7 @@ public:
     explicit CellRules();
     virtual ~CellRules() {}
 
-    virtual void processCell(World& p_world, int p_x, int p_y) = 0;
+    virtual bool processCell(World& p_world, int p_x, int p_y) = 0;
 };
 Q_DECLARE_INTERFACE(CellRules, "CellRules")
 

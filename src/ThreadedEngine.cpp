@@ -1,16 +1,17 @@
-#include "ThreadedTiledEngine.hpp"
+#include "ThreadedEngine.hpp"
 
 #include <iostream>
 #include <QDebug>
 #include <QRunnable>
 #include <QThreadPool>
 
-ThreadedTiledEngine::ThreadedTiledEngine(std::shared_ptr<World> p_world, CellRules& p_rules):
+ThreadedEngine::ThreadedEngine(std::shared_ptr<World> p_world, CellRules& p_rules):
 TiledEngine(p_world, p_rules) {
 }
 
 
-void ThreadedTiledEngine::processWorld(World& p_world) {
+uint ThreadedEngine::processWorld(World& p_world) {
+	uint changes = 1;
 	QThreadPool pool;
 	
 	foreach (auto const tile, tiles())
@@ -19,4 +20,5 @@ void ThreadedTiledEngine::processWorld(World& p_world) {
 		}));
 	
 	pool.waitForDone();
+	return changes;
 }

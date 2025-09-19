@@ -12,7 +12,7 @@ public:
     ~BasicEngine() {}
 
 protected:
-    void processWorld(World&) override;
+    uint processWorld(World&) override;
 };
 
 #endif

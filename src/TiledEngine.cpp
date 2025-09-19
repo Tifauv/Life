@@ -6,7 +6,7 @@
 TiledEngine::TiledEngine(std::shared_ptr<World> p_world, CellRules& p_rules):
 Engine(p_world, p_rules),
 m_tileSize(8) {
-    prepareTiles(world().width(), world().height());
+    prepareTiles(p_world->width(), p_world->height());
 }
 
 
@@ -91,14 +91,20 @@ const QList<QRect>& TiledEngine::tiles() const {
 }
 
 
-void TiledEngine::processWorld(World& p_world) {
+uint TiledEngine::processWorld(World& p_world) {
+    uint changes = 0;
+    
     // Process the world, tile by tile
     foreach (auto const tile, m_tiles)
-        processTile(p_world, tile);
+        changes += processTile(p_world, tile);
+    
+    return changes;
 }
 
 
-void TiledEngine::processTile(World& p_world, const QRect& p_tile) {
+uint TiledEngine::processTile(World& p_world, const QRect& p_tile) {
+    uint changes = 0;
+
     int startX = p_tile.left();
     int startY = p_tile.top();
     int endX = p_tile.right();
@@ -109,5 +115,7 @@ void TiledEngine::processTile(World& p_world, const QRect& p_tile) {
     // Process the tile, one cell at a time
     for (int y=startY; y<=endY; y++)
         for (int x=startX; x<=endX; x++)
-            cellRules().processCell(p_world, x, y);
+            changes += (cellRules().processCell(p_world, x, y) ? 1 : 0);
+    
+    return changes;
 }

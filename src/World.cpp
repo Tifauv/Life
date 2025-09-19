@@ -52,6 +52,22 @@ void World::swap() {
 }
 
 
+bool World::wasAliveAt(int p_x, int p_y) const {
+    return m_frontImage->valid(p_x, p_y) && m_frontImage->pixelIndex(p_x, p_y) == COLOR_ALIVE;
+}
+
+
+bool World::wasDeadAt(int p_x, int p_y) const {
+    return m_frontImage->valid(p_x, p_y) && m_frontImage->pixelIndex(p_x, p_y) == COLOR_DEAD;
+}
+
+
+bool World::changedAt(int p_x, int p_y) const {
+    return m_frontImage->valid(p_x, p_y) &&
+        m_frontImage->pixelIndex(p_x, p_y) != m_backImage->pixelIndex(p_x, p_y);
+}
+
+
 void World::copyCellAt(int p_x, int p_y) {
     if (!m_backImage->valid(p_x, p_y))
         return;
@@ -86,7 +102,7 @@ uint World::countAliveAround(int p_x, int p_y) const {
             if (x == p_x && y == p_y)
                 continue;
 
-            if (m_frontImage->valid(x, y) && m_frontImage->pixelIndex(x, y) == COLOR_ALIVE)
+            if (wasAliveAt(x, y))
                 countAlive++;
         }
 

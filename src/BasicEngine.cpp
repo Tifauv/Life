@@ -8,9 +8,13 @@ Engine(p_world, p_rules) {
 }
 
 
-void BasicEngine::processWorld(World& p_world) {
+uint BasicEngine::processWorld(World& p_world) {
+    uint changes = 0;
+    
     // Process the world grid, one cell at a time
     for (int y=0; y<p_world.height(); y++)
         for (int x=0; x<p_world.width(); x++)
-            cellRules().processCell(p_world, x, y);
+            changes += (cellRules().processCell(p_world, x, y) ? 1 : 0);
+    
+    return changes;
 }

@@ -7,7 +7,7 @@ CellRules() {
 }
 
 
-void StandardCellRules::processCell(World& p_world, int p_x, int p_y) {
+bool StandardCellRules::processCell(World& p_world, int p_x, int p_y) {
     uint neighbors = p_world.countAliveAround(p_x, p_y);
     //qDebug() << "Cell [" << p_x << ", " << p_y <<"] has " << neighbors << " neighbors.";
 
@@ -22,4 +22,6 @@ void StandardCellRules::processCell(World& p_world, int p_x, int p_y) {
         case 7:
         case 8: p_world.setDeadAt(p_x, p_y);
     }
+    
+    return p_world.changedAt(p_x, p_y);
 }

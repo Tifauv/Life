@@ -3,7 +3,7 @@
 
 #include "World.hpp"
 #include "PatternsLibrary.hpp"
-#include "ThreadedTiledEngine.hpp"
+#include "MapReduceEngine.hpp"
 #include "StandardCellRules.hpp"
 
 #include "MainWindow.hpp"
@@ -21,15 +21,16 @@ int main(int p_argc, char* p_argv[]) {
 
 	// Create the engine
 	StandardCellRules rules;
-	ThreadedTiledEngine engine(world, rules);
+	MapReduceEngine engine(world, rules);
 	engine.setTileSize(32);
 
 	// Create the main window & layout
 	MainWindow mainWindow(world);
-	//mainWindow.resize(1024, 1024);
 
 	QObject::connect(&mainWindow, &MainWindow::step,
 					 &engine,     &Engine::run);
+	QObject::connect(&engine,     &Engine::cellsChanged,
+					&mainWindow,  &MainWindow::detectStop);
 	QObject::connect(&engine,     &Engine::finished,
 					 &mainWindow, &MainWindow::stepFinished);
 

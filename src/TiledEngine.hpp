@@ -23,8 +23,8 @@ protected:
     
     const QList<QRect>& tiles() const;
 
-    virtual void processWorld(World&) override;
-    virtual void processTile(World&, const QRect& p_tile);
+    virtual uint processWorld(World&) override;
+    virtual uint processTile(World&, const QRect& p_tile);
 
 private:
     uint m_tileSize;

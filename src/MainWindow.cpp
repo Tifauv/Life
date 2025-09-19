@@ -97,6 +97,12 @@ void MainWindow::emitStep() {
 }
 
 
+void MainWindow::detectStop(uint p_changes) {
+    if (p_changes == 0 && m_beat->isActive())
+        pause();
+}
+
+
 void MainWindow::stepFinished() {
     if (!m_beat->isActive()) {
         m_stepBtn->setDisabled(false);

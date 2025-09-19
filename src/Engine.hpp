@@ -18,13 +18,14 @@ public slots:
     void run();
 
 signals:
+    void cellsChanged(uint);
     void finished();
 
 protected:
     const World& world()     const;
     CellRules&   cellRules() const;
 
-    virtual void processWorld(World&) = 0;
+    virtual uint processWorld(World&) = 0;
 
 private:
     std::shared_ptr<World> m_world;
