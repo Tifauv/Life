@@ -22,7 +22,7 @@ CellRules& Engine::cellRules() const {
 void Engine::run() {
     QElapsedTimer timer;
 
-    //qDebug() << "Starting engine pass...";
+    qDebug() << "Starting engine pass...";
     timer.start();
     uint changes = processWorld(*m_world);
     qint64 elapsed = timer.elapsed();
