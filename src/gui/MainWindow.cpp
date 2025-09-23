@@ -11,7 +11,7 @@ QWidget() {
     m_stepBtn = new QPushButton(">|");
     m_stepBtn->setToolTip("One step");
 
-    QLabel* speedLbl = new QLabel("Speed:");
+    QLabel* speedLbl = new QLabel("Speed: ");
 
     m_speedSld = new QSlider(Qt::Horizontal);
     m_speedSld->setMinimum(0);
@@ -31,22 +31,43 @@ QWidget() {
     // Content view
     m_worldView = new WorldView(p_world);
 
+    // Control row
+    m_zoomSld = new QSlider(Qt::Horizontal);
+    m_zoomSld->setMinimum(1);
+    m_zoomSld->setMaximum(5);
+    m_zoomSld->setSingleStep(1);
+    m_zoomSld->setPageStep(1);
+    m_zoomSld->setValue(1);
+    m_zoomSld->setTickPosition(QSlider::TicksBelow);
+    m_zoomSld->setTickInterval(1);
+
+    m_zoomLbl = new QLabel("x1");
+
+    QHBoxLayout* controlLayout = new QHBoxLayout;
+    controlLayout->addWidget(new QLabel("Zoom: "));
+    controlLayout->addWidget(m_zoomSld);
+    controlLayout->addWidget(m_zoomLbl);
+
+    // Main layout
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addLayout(actionsLayout);
     mainLayout->addWidget(m_worldView, 0, Qt::AlignCenter);
+    mainLayout->addLayout(controlLayout);
     setLayout(mainLayout);
 
     QObject::connect(m_playBtn, &QPushButton::clicked,
                      this,      &MainWindow::start);
-
     QObject::connect(m_stepBtn, &QPushButton::clicked,
                      this,      &MainWindow::startStep);
+    QObject::connect(m_speedSld, &QSlider::valueChanged,
+                     this,       &MainWindow::updateBeat);
+
+    QObject::connect(m_zoomSld, &QSlider::valueChanged,
+                     this,      &MainWindow::updateZoom);
 
     m_beat = new QTimer(this);
     QObject::connect(m_beat,    &QTimer::timeout,
                      this,      &MainWindow::emitStep);
-    QObject::connect(m_speedSld, &QSlider::valueChanged,
-                     this,       &MainWindow::updateBeat);
 }
 
 
@@ -89,6 +110,14 @@ void MainWindow::startStep() {
 
 void MainWindow::updateBeat(int p_delay) {
     m_beat->setInterval( (p_delay == 0 ? 1 : p_delay) );
+}
+
+
+void MainWindow::updateZoom(int p_zoom) {
+    int zoom = 1 << (p_zoom - 1);
+
+    m_worldView->setZoom(zoom);
+    m_zoomLbl->setText("x" + QString::number(zoom));
 }
 
 

@@ -32,6 +32,7 @@ protected slots:
     void startStep();
     
     void updateBeat(int p_delay);
+    void updateZoom(int p_zoom);
 
 protected:
     void emitStep();
@@ -40,6 +41,8 @@ private:
     QPushButton* m_playBtn;  
     QPushButton* m_stepBtn;
     QSlider*     m_speedSld;
+    QSlider*     m_zoomSld;
+    QLabel*      m_zoomLbl;
     QTimer*      m_beat;
     WorldView*   m_worldView;
 };

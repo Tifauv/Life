@@ -6,19 +6,31 @@
 
 WorldView::WorldView(std::shared_ptr<World> p_world, QWidget* p_parent):
 QWidget(p_parent),
-m_world(p_world) {
+m_world(p_world),
+m_zoom(1) {
     QObject::connect(p_world.get(), &World::updated,
                      this,          qOverload<>(&QWidget::update));
 }
 
 
+uint WorldView::zoom() const {
+    return m_zoom;
+}
+
+
+void WorldView::setZoom(uint p_zoom) {
+    m_zoom = p_zoom;
+    updateGeometry();
+}
+
+
 QSize WorldView::minimumSizeHint() const {
-    return m_world->size();
+    return m_world->size() * m_zoom;
 }
 
 
 QSize WorldView::sizeHint() const {
-    return m_world->size();
+    return m_world->size() * m_zoom;
 }
 
 

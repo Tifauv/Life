@@ -9,8 +9,13 @@
 class WorldView : public QWidget {
 	Q_OBJECT
 
+    Q_PROPERTY(uint zoom READ zoom WRITE setZoom)
+
 public:
 	explicit WorldView(std::shared_ptr<World> p_world, QWidget* p_parent = nullptr);
+
+    uint zoom() const;
+    void setZoom(uint p_zoom);
 
 	QSize minimumSizeHint() const override;
 	QSize sizeHint() const override;
@@ -23,6 +28,7 @@ protected:
 
 private:
     std::shared_ptr<World> m_world;
+    uint m_zoom;
 };
 
 #endif
