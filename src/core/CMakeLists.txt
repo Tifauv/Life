@@ -7,7 +7,7 @@ qt_add_library( LifeCore SHARED
     Engine.cpp
     BasicEngine.cpp
     TiledEngine.cpp
-    ThreadedEngine.cpp
+
     MapReduceEngine.cpp
 )
 
