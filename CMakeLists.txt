@@ -15,5 +15,3 @@ find_package( Qt6 REQUIRED
 qt_standard_project_setup()
 
 add_subdirectory( src )
-
-feature_summary( WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES )
