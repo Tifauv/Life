@@ -14,7 +14,7 @@ int main(int p_argc, char* p_argv[]) {
 	QApplication::setOrganizationName(QStringLiteral("CatWitch"));
 	QApplication::setOrganizationDomain(QStringLiteral("catwitch.eu"));
 	QApplication::setApplicationName(QStringLiteral("Life"));
-	QApplication::setDesktopFilename(QStringLiteral("eu.catwitch.life"));
+	QApplication::setDesktopFileName(QStringLiteral("eu.catwitch.life"));
 
 	// Set the graphical style
 	QApplication::setStyle(QStringLiteral("breeze"));
