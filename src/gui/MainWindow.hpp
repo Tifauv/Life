@@ -18,14 +18,14 @@ class MainWindow : public QWidget {
 public:
     explicit MainWindow(std::shared_ptr<World> p_world);
 
-public slots:
+public Q_SLOTS:
     void detectStop(uint p_changes);
     void stepFinished();
 
-signals:
+Q_SIGNALS:
     void step();
 
-protected slots:
+protected Q_SLOTS:
     void start();
     void pause();
     

@@ -2,36 +2,40 @@
 
 MainWindow::MainWindow(std::shared_ptr<World> p_world) :
 QWidget() {
-    setWindowTitle("Life");
+    setWindowTitle(QStringLiteral("Life"));
 
     // Actions row
-    m_playBtn = new QPushButton(">");
-    m_playBtn->setToolTip("Play");
-    
-    m_stepBtn = new QPushButton(">|");
-    m_stepBtn->setToolTip("One step");
+    QHBoxLayout* actionsLayout = new QHBoxLayout;
 
-    QLabel* speedLbl = new QLabel("Speed: ");
+    m_stepBtn = new QPushButton(QStringLiteral(">|"));
+    m_stepBtn->setToolTip(QStringLiteral("One step"));
+    actionsLayout->addWidget(m_stepBtn);
+
+    m_playBtn = new QPushButton(QStringLiteral(">"));
+    m_playBtn->setToolTip(QStringLiteral("Play"));
+    actionsLayout->addWidget(m_playBtn);
+
+    QLabel* speedLbl = new QLabel(QStringLiteral("Speed: "));
+    actionsLayout->addWidget(speedLbl);
 
     m_speedSld = new QSlider(Qt::Horizontal);
     m_speedSld->setMinimum(0);
     m_speedSld->setMaximum(1000);
     m_speedSld->setSingleStep(50);
-    m_speedSld->setPageStep(250);
-    m_speedSld->setValue(500);
+    m_speedSld->setPageStep(200);
+    m_speedSld->setValue(250);
     m_speedSld->setTickPosition(QSlider::TicksAbove);
     m_speedSld->setTickInterval(50);
-
-    QHBoxLayout* actionsLayout = new QHBoxLayout;
-    actionsLayout->addWidget(m_playBtn);
-    actionsLayout->addWidget(m_stepBtn);
-    actionsLayout->addWidget(speedLbl);
     actionsLayout->addWidget(m_speedSld);
 
     // Content view
     m_worldView = new WorldView(p_world);
 
     // Control row
+    QHBoxLayout* controlLayout = new QHBoxLayout;
+
+    controlLayout->addWidget(new QLabel(QStringLiteral("Zoom: ")));
+
     m_zoomSld = new QSlider(Qt::Horizontal);
     m_zoomSld->setMinimum(1);
     m_zoomSld->setMaximum(5);
@@ -40,12 +44,9 @@ QWidget() {
     m_zoomSld->setValue(1);
     m_zoomSld->setTickPosition(QSlider::TicksBelow);
     m_zoomSld->setTickInterval(1);
-
-    m_zoomLbl = new QLabel("x1");
-
-    QHBoxLayout* controlLayout = new QHBoxLayout;
-    controlLayout->addWidget(new QLabel("Zoom: "));
     controlLayout->addWidget(m_zoomSld);
+
+    m_zoomLbl = new QLabel(QStringLiteral("x1"));
     controlLayout->addWidget(m_zoomLbl);
 
     // Main layout
@@ -76,8 +77,8 @@ void MainWindow::start() {
                         this,      &MainWindow::start);
 
     m_stepBtn->setDisabled(true);
-    m_playBtn->setText("||");
-    m_playBtn->setToolTip("Pause");
+    m_playBtn->setText(QStringLiteral("||"));
+    m_playBtn->setToolTip(QStringLiteral("Pause"));
 
     QObject::connect(m_playBtn, &QPushButton::clicked,
                      this,      &MainWindow::pause);
@@ -92,8 +93,8 @@ void MainWindow::pause() {
     QObject::disconnect(m_playBtn, &QPushButton::clicked,
                         this,      &MainWindow::pause);
 
-    m_playBtn->setText(">");
-    m_playBtn->setToolTip("Play");
+    m_playBtn->setText(QStringLiteral(">"));
+    m_playBtn->setToolTip(QStringLiteral("Play"));
     m_stepBtn->setDisabled(false);
  
     QObject::connect(m_playBtn, &QPushButton::clicked,
@@ -117,12 +118,12 @@ void MainWindow::updateZoom(int p_zoom) {
     int zoom = 1 << (p_zoom - 1);
 
     m_worldView->setZoom(zoom);
-    m_zoomLbl->setText("x" + QString::number(zoom));
+    m_zoomLbl->setText(QStringLiteral("x") + QString::number(zoom));
 }
 
 
 void MainWindow::emitStep() {
-    emit step();
+    Q_EMIT step();
 }
 
 
