@@ -14,10 +14,10 @@ public:
     explicit Engine(std::shared_ptr<World> p_world, CellRules& p_rules);
     virtual ~Engine() {}
 
-public slots:
+public Q_SLOTS:
     void run();
 
-signals:
+Q_SIGNALS:
     void cellsChanged(uint);
     void finished();
 

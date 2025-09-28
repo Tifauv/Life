@@ -10,7 +10,7 @@ m_cellRules(p_rules) {
 
 
 const World& Engine::world() const {
-        return *m_world;
+    return *m_world;
 }
 
 
@@ -32,6 +32,6 @@ void Engine::run() {
     m_world->swap();
 
     //qDebug() << "Engine pass finished.";
-    emit cellsChanged(changes);
-    emit finished();
+    Q_EMIT cellsChanged(changes);
+    Q_EMIT finished();
 }

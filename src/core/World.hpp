@@ -29,7 +29,7 @@ public:
 
 	uint countAliveAround(int p_x, int p_y) const;
 
-signals:
+Q_SIGNALS:
 	void updated();
 
 private:

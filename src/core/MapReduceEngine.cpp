@@ -1,9 +1,5 @@
 #include "MapReduceEngine.hpp"
 
-#include <iostream>
-#include <QDebug>
-#include <QRunnable>
-#include <QThreadPool>
 #include <QtConcurrent>
 
 MapReduceEngine::MapReduceEngine(std::shared_ptr<World> p_world, CellRules& p_rules):

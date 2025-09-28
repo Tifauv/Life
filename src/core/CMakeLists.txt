@@ -1,4 +1,3 @@
-
 qt_add_library( LifeCore SHARED
     World.cpp
     PatternsLibrary.cpp
@@ -7,7 +6,6 @@ qt_add_library( LifeCore SHARED
     Engine.cpp
     BasicEngine.cpp
     TiledEngine.cpp
-
     MapReduceEngine.cpp
 )
 
@@ -15,10 +13,9 @@ target_include_directories( LifeCore PUBLIC . )
 
 target_link_libraries( LifeCore
     PRIVATE
-        Qt6::Core
-        Qt6::Concurrent
-        Qt6::Gui
-        Qt6::Widgets
+    Qt6::Core
+    Qt6::Concurrent
+    Qt6::Gui
 )
 
 set_target_properties( LifeCore PROPERTIES

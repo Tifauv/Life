@@ -48,7 +48,7 @@ void World::swap() {
     QImage* temp = m_backImage;
     m_backImage = m_frontImage;
     m_frontImage = temp;
-    emit updated();
+    Q_EMIT updated();
 }
 
 

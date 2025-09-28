@@ -47,42 +47,43 @@ void TiledEngine::prepareTiles(int p_worldWidth, int p_worldHeight) {
 
     // Add all full tiles
     qDebug() << "== " << m_tileSize << "x" << m_tileSize << " tiles :";
-    for (uint vertTile=0; vertTile<verticalTiles; vertTile++)
+    for (uint vertTile=0; vertTile<verticalTiles; vertTile++) {
         for (uint horizTile=0; horizTile<horizontalTiles; horizTile++) {
             tiles.append(QRect(horizTile * m_tileSize, vertTile * m_tileSize,
                                m_tileSize, m_tileSize));
             qDebug() << "  [" << (horizTile * m_tileSize) << ", " << (vertTile * m_tileSize) << "]";
         }
+    }
 
-        // Add vertical remains
-        if (hasVerticalRemains) {
-            qDebug() << "== " << horizontalRemains << "x" << m_tileSize << " tiles :";
-            for (uint vertTile=0; vertTile<verticalTiles; vertTile++) {
-                tiles.append(QRect(p_worldWidth - horizontalRemains, vertTile * m_tileSize,
-                                   horizontalRemains, m_tileSize));
-                qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (vertTile * m_tileSize) << "]";
-            }
+    // Add vertical remains
+    if (hasVerticalRemains) {
+        qDebug() << "== " << horizontalRemains << "x" << m_tileSize << " tiles :";
+        for (uint vertTile=0; vertTile<verticalTiles; vertTile++) {
+            tiles.append(QRect(p_worldWidth - horizontalRemains, vertTile * m_tileSize,
+                                horizontalRemains, m_tileSize));
+            qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (vertTile * m_tileSize) << "]";
         }
+    }
 
-        // Add horizontal remains
-        if (hasHorizontalRemains) {
-            qDebug() << "== " << m_tileSize << "x" << verticalRemains << " tiles :";
-            for (uint horizTile=0; horizTile<horizontalTiles; horizTile++) {
-                tiles.append(QRect(horizTile * m_tileSize, p_worldHeight - verticalRemains,
-                                   m_tileSize, verticalRemains));
-                qDebug() << "  [" << (horizTile * m_tileSize) << ", " << (p_worldHeight -verticalRemains) << "]";
-            }
+    // Add horizontal remains
+    if (hasHorizontalRemains) {
+        qDebug() << "== " << m_tileSize << "x" << verticalRemains << " tiles :";
+        for (uint horizTile=0; horizTile<horizontalTiles; horizTile++) {
+            tiles.append(QRect(horizTile * m_tileSize, p_worldHeight - verticalRemains,
+                               m_tileSize, verticalRemains));
+            qDebug() << "  [" << (horizTile * m_tileSize) << ", " << (p_worldHeight -verticalRemains) << "]";
         }
+    }
 
-        // Add the remaining block
-        if (hasBlockRemains) {
-            qDebug() << "== " << horizontalRemains << "x" << verticalRemains << " tiles :";
-            tiles.append(QRect(p_worldWidth - horizontalRemains, p_worldHeight - verticalRemains,
-                               horizontalRemains, verticalRemains));
-            qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (p_worldHeight - verticalRemains) << "]";
-        }
+    // Add the remaining block
+    if (hasBlockRemains) {
+        qDebug() << "== " << horizontalRemains << "x" << verticalRemains << " tiles :";
+        tiles.append(QRect(p_worldWidth - horizontalRemains, p_worldHeight - verticalRemains,
+                           horizontalRemains, verticalRemains));
+        qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (p_worldHeight - verticalRemains) << "]";
+    }
 
-        m_tiles = tiles;
+    m_tiles = tiles;
 }
 
 
@@ -95,7 +96,7 @@ uint TiledEngine::processWorld(World& p_world) {
     uint changes = 0;
     
     // Process the world, tile by tile
-    foreach (auto const tile, m_tiles)
+    for (auto const tile : m_tiles)
         changes += processTile(p_world, tile);
     
     return changes;
