@@ -1,4 +1,3 @@
-
 qt_add_executable( Life
     WorldView.cpp
     MainWindow.cpp
@@ -8,7 +7,6 @@ qt_add_executable( Life
 target_link_libraries( Life
     PRIVATE
         Qt6::Core
-        Qt6::Concurrent
         Qt6::Gui
         Qt6::Widgets
         LifeCore )
