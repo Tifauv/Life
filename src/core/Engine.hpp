@@ -4,10 +4,11 @@
 #include <memory>
 #include <QObject>
 
+#include "lifecore_export.h"
 #include "CellRules.hpp"
 #include "World.hpp"
 
-class Engine : public QObject {
+class LIFECORE_EXPORT Engine : public QObject {
     Q_OBJECT
 
 public:

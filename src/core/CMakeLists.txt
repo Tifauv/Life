@@ -1,4 +1,4 @@
-qt_add_library( LifeCore SHARED
+add_library( LifeCore SHARED
     World.cpp
     PatternsLibrary.cpp
     CellRules.cpp
@@ -8,6 +8,7 @@ qt_add_library( LifeCore SHARED
     TiledEngine.cpp
     MapReduceEngine.cpp
 )
+generate_export_header( LifeCore )
 
 target_include_directories( LifeCore PUBLIC . )
 
@@ -18,7 +19,4 @@ target_link_libraries( LifeCore
     Qt6::Gui
 )
 
-set_target_properties( LifeCore PROPERTIES
-    WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE    ON
-)
+install( TARGETS LifeCore ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

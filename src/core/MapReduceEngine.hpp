@@ -1,9 +1,10 @@
 #ifndef MapReduceEngine_hpp
 #define MapReduceEngine_hpp
 
+#include "lifecore_export.h"
 #include "TiledEngine.hpp"
 
-class MapReduceEngine : public TiledEngine {
+class LIFECORE_EXPORT MapReduceEngine : public TiledEngine {
     Q_OBJECT
     Q_INTERFACES(TiledEngine)
 

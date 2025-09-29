@@ -44,7 +44,7 @@ int WorldView::heightForWidth(int p_width) const {
 }
 
 
-void WorldView::paintEvent(QPaintEvent* p_event) {
+void WorldView::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     painter.drawImage(
         QRectF(0, 0, width(), height()),

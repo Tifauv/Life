@@ -1,11 +1,13 @@
 #ifndef TiledEngine_hpp
 #define TiledEngine_hpp
 
-#include "Engine.hpp"
 #include <QList>
 #include <QRect>
 
-class TiledEngine : public Engine {
+#include "lifecore_export.h"
+#include "Engine.hpp"
+
+class LIFECORE_EXPORT TiledEngine : public Engine {
     Q_OBJECT
     Q_INTERFACES(Engine)
 

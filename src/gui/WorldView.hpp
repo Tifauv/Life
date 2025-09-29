@@ -24,7 +24,7 @@ public:
 	int heightForWidth(int p_width) const override;
 
 protected:
-	void paintEvent(QPaintEvent* p_event) override;
+	void paintEvent(QPaintEvent*) override;
 
 private:
     std::shared_ptr<World> m_world;

@@ -3,10 +3,11 @@
 
 #include <QObject>
 
+#include "lifecore_export.h"
 #include "World.hpp"
 
 
-class CellRules : public QObject {
+class LIFECORE_EXPORT CellRules : public QObject {
     Q_OBJECT
 
 public:

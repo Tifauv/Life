@@ -22,7 +22,7 @@ int main(int p_argc, char* p_argv[]) {
 	// Create the world
 	std::shared_ptr<World> world = std::make_shared<World>(512, 512);
 	world->init();
-	for (uint i=2; i<world->width()-5; i+=8)
+	for (int i=2; i<world->width()-5; i+=8)
 		PatternsLibrary::drawGliderAt(world, i, 2);
 	world->swap();
 

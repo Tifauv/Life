@@ -1,10 +1,11 @@
 #ifndef StandardCellRules_hpp
 #define StandardCellRules_hpp
 
+#include "lifecore_export.h"
 #include "CellRules.hpp"
 
 
-class StandardCellRules : public CellRules {
+class LIFECORE_EXPORT StandardCellRules : public CellRules {
     Q_OBJECT
     Q_INTERFACES(CellRules)
 

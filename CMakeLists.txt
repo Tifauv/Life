@@ -2,16 +2,38 @@ cmake_minimum_required( VERSION 3.20 )
 
 project( Life VERSION 0.1.0 LANGUAGES CXX )
 
-set( CMAKE_CXX_STANDARD 20 )
-set( CMAKE_CXX_STANDARD_REQUIRED on )
+find_package( ECM 6.0.0 REQUIRED NO_MODULE )
+set( CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
+
+include( GenerateExportHeader )
+include( KDEInstallDirs6 )
+include( KDECMakeSettings    NO_POLICY_SCOPE )
+include( KDECompilerSettings NO_POLICY_SCOPE )
+include( ECMFindQmlModule )
+include( ECMQmlModule )
 
 find_package( Qt6 REQUIRED
     COMPONENTS
     Core
     Concurrent
     Gui
+    Quick
+    QuickControls2
     Widgets
 )
-qt_standard_project_setup()
+
+find_package( KF6 REQUIRED
+    COMPONENTS
+    Kirigami
+    I18n
+    CoreAddons
+    QQC2DesktopStyle
+    IconThemes
+)
+ecm_find_qmlmodule( org.kde.kirigami REQUIRED )
 
 add_subdirectory( src )
+
+install( PROGRAMS eu.catwitch.life.desktop DESTINATION ${KDE_INSTALL_APPDIR} )
+
+feature_summary( WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES )

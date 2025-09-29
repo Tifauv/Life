@@ -1,9 +1,10 @@
 #ifndef BasicEngine_hpp
 #define BasicEngine_hpp
 
+#include "lifecore_export.h"
 #include "Engine.hpp"
 
-class BasicEngine : public Engine {
+class LIFECORE_EXPORT BasicEngine : public Engine {
     Q_OBJECT
     Q_INTERFACES(Engine)
 

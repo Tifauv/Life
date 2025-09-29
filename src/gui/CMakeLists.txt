@@ -1,4 +1,4 @@
-qt_add_executable( Life
+add_executable( Life
     WorldView.cpp
     MainWindow.cpp
     main.cpp
@@ -6,12 +6,10 @@ qt_add_executable( Life
 
 target_link_libraries( Life
     PRIVATE
-        Qt6::Core
-        Qt6::Gui
-        Qt6::Widgets
-        LifeCore )
-
-set_target_properties( Life PROPERTIES
-    WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE    ON
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+    LifeCore
 )
+
+install( TARGETS Life ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

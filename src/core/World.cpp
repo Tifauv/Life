@@ -1,7 +1,6 @@
 #include "World.hpp"
 
 #include <QDebug>
-#include <QPainter>
 
 
 World::World(const QSize p_size):

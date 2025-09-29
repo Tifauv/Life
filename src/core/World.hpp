@@ -4,7 +4,10 @@
 #include <QObject>
 #include <QImage>
 
-class World : public QObject {
+#include "lifecore_export.h"
+
+
+class LIFECORE_EXPORT World : public QObject {
 	Q_OBJECT
 
 public:
