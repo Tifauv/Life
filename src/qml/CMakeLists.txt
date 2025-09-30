@@ -1,8 +1,14 @@
 add_executable( Life_qml
+    WorldItem.cpp
     main.cpp
 )
 
-ecm_add_qml_module( Life_qml URI eu.catwitch.life )
+ecm_add_qml_module( Life_qml
+    URI eu.catwitch.life
+    VERSION 1.0
+    SOURCES
+    WorldItem.hpp
+)
 ecm_target_qml_sources( Life_qml
     SOURCES
     MainWindow.qml

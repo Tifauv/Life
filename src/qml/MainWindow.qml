@@ -35,7 +35,7 @@ Kirigami.ApplicationWindow {
                 }
             }
 
-            Item {
+            WorldItem {
                 id: worldView
             }
 
@@ -56,11 +56,5 @@ Kirigami.ApplicationWindow {
                 }
             }
         }
-        Controls.Label {
-            // Center label horizontally and vertically within parent object
-            anchors.centerIn: parent
-            text: i18n("Hello World!")
-        }
     }
-
 }

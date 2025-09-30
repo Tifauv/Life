@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <QtQml/qqmlregistration.h>
 #include <KIconTheme>
 #include <KLocalizedString>
 #include <KLocalizedContext>
