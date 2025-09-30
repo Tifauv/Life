@@ -12,7 +12,7 @@ PKGS="cmake
     kf6-kiconthemes-devel
     kf6-qqc2-desktop-style"
 
-toolbox create "${NAME}"
-toolbox run -c "${NAME}" sudo dnf update
-toolbox run -c "${NAME}" sudo dnf install ${PKGS}
+toolbox create "${NAME}" --distro Fedora --release 42
+toolbox run -c "${NAME}" sudo dnf --assumeyes update
+toolbox run -c "${NAME}" sudo dnf --assumeyes install ${PKGS}
 
