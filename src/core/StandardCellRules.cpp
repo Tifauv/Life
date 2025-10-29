@@ -7,7 +7,7 @@ CellRules() {
 }
 
 
-bool StandardCellRules::processCell(World& p_world, int p_x, int p_y) {
+bool StandardCellRules::processCell(World& p_world, int p_x, int p_y) const {
     uint neighbors = p_world.countAliveAround(p_x, p_y);
     //qDebug() << "Cell [" << p_x << ", " << p_y <<"] has " << neighbors << " neighbors.";
 

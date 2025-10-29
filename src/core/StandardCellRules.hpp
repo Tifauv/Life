@@ -13,7 +13,7 @@ public:
     explicit StandardCellRules();
     ~StandardCellRules() {}
 
-    bool processCell(World& p_world, int p_x, int p_y) override;
+    bool processCell(World& p_world, int p_x, int p_y) const override;
 };
 
 #endif
