@@ -2,8 +2,8 @@
 
 #include <QtConcurrent>
 
-MapReduceEngine::MapReduceEngine(std::shared_ptr<World> p_world, CellRules& p_rules):
-TiledEngine(p_world, p_rules) {
+MapReduceEngine::MapReduceEngine(QObject* p_parent):
+TiledEngine(p_parent) {
 }
 
 

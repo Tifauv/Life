@@ -9,7 +9,7 @@ class LIFECORE_EXPORT MapReduceEngine : public TiledEngine {
     Q_INTERFACES(TiledEngine)
 
 public:
-    explicit MapReduceEngine(std::shared_ptr<World> p_world, CellRules& p_rules);
+    explicit MapReduceEngine(QObject* p_parent = nullptr);
     virtual ~MapReduceEngine() {}
 
 protected:

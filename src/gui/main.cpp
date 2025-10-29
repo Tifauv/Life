@@ -28,7 +28,9 @@ int main(int p_argc, char* p_argv[]) {
 
 	// Create the engine
 	StandardCellRules rules;
-	MapReduceEngine engine(world, rules);
+	MapReduceEngine engine;
+	engine.setWorld(world.get());
+	engine.setCellRules(&rules);
 	engine.setTileSize(32);
 
 	// Create the main window & layout
@@ -38,7 +40,7 @@ int main(int p_argc, char* p_argv[]) {
 					 &engine,     &Engine::run);
 	QObject::connect(&engine,     &Engine::cellsChanged,
 					&mainWindow,  &MainWindow::detectStop);
-	QObject::connect(&engine,     &Engine::finished,
+	QObject::connect(&engine,     &Engine::worldUpdated,
 					 &mainWindow, &MainWindow::stepFinished);
 
 	mainWindow.show();

@@ -3,19 +3,25 @@
 #include <QDebug>
 #include <QElapsedTimer>
 
-Engine::Engine(std::shared_ptr<World> p_world, CellRules& p_rules):
-m_world(p_world),
-m_cellRules(p_rules) {
+Engine::Engine(QObject* p_parent):
+QObject(p_parent),
+m_world(nullptr),
+m_cellRules(nullptr) {
 }
 
 
-const World& Engine::world() const {
-    return *m_world;
+World* Engine::world() const {
+    return m_world;
 }
 
 
-CellRules& Engine::cellRules() const {
-    return m_cellRules;
+void Engine::setWorld(World* p_world) {
+    m_world = p_world;
+}
+
+
+void Engine::setCellRules(const CellRules* p_rules) {
+    m_cellRules = p_rules;
 }
 
 
@@ -33,5 +39,10 @@ void Engine::run() {
 
     //qDebug() << "Engine pass finished.";
     Q_EMIT cellsChanged(changes);
-    Q_EMIT finished();
+    Q_EMIT worldUpdated(m_world->frontImage());
+}
+
+
+bool Engine::processCell(World& p_world, int p_x, int p_y) const {
+    return m_cellRules->processCell(p_world, p_x, p_y);
 }

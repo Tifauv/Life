@@ -3,10 +3,9 @@
 #include <iostream>
 #include <QDebug>
 
-TiledEngine::TiledEngine(std::shared_ptr<World> p_world, CellRules& p_rules):
-Engine(p_world, p_rules),
+TiledEngine::TiledEngine(QObject* p_parent):
+Engine(p_parent),
 m_tileSize(8) {
-    prepareTiles(p_world->width(), p_world->height());
 }
 
 
@@ -17,7 +16,7 @@ uint TiledEngine::tileSize() const {
 
 void TiledEngine::setTileSize(uint p_size) {
     m_tileSize = p_size;
-    prepareTiles(world().width(), world().height());
+    prepareTiles(world()->width(), world()->height());
 }
 
 
@@ -116,7 +115,7 @@ uint TiledEngine::processTile(World& p_world, const QRect& p_tile) {
     // Process the tile, one cell at a time
     for (int y=startY; y<=endY; y++)
         for (int x=startX; x<=endX; x++)
-            changes += (cellRules().processCell(p_world, x, y) ? 1 : 0);
+            changes += (processCell(p_world, x, y) ? 1 : 0);
     
     return changes;
 }

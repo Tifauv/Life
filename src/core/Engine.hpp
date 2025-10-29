@@ -1,5 +1,5 @@
-#ifndef Engine_HPP
-#define Engine_HPP
+#ifndef Engine_hpp
+#define Engine_hpp
 
 #include <memory>
 #include <QObject>
@@ -11,26 +11,32 @@
 class LIFECORE_EXPORT Engine : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(World*           world      READ world  WRITE setWorld)
+    Q_PROPERTY(const CellRules* cellRules              WRITE setCellRules)
+
 public:
-    explicit Engine(std::shared_ptr<World> p_world, CellRules& p_rules);
+    explicit Engine(QObject* p_parent = nullptr);
     virtual ~Engine() {}
+
+    World* world() const;
+
+    void setWorld(World* p_world);
+    void setCellRules(const CellRules* p_rules);
 
 public Q_SLOTS:
     void run();
 
 Q_SIGNALS:
     void cellsChanged(uint);
-    void finished();
+    void worldUpdated(QImage*);
 
 protected:
-    const World& world()     const;
-    CellRules&   cellRules() const;
-
     virtual uint processWorld(World&) = 0;
+    virtual bool processCell(World&, int p_x, int p_y) const;
 
 private:
-    std::shared_ptr<World> m_world;
-    CellRules&             m_cellRules;
+    World*           m_world;
+    const CellRules* m_cellRules;
 };
 Q_DECLARE_INTERFACE(Engine, "Engine")
 

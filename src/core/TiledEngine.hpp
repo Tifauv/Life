@@ -14,7 +14,7 @@ class LIFECORE_EXPORT TiledEngine : public Engine {
     Q_PROPERTY(uint tileSize  READ tileSize  WRITE setTileSize)
 
 public:
-    explicit TiledEngine(std::shared_ptr<World> p_world, CellRules& p_rules);
+    explicit TiledEngine(QObject* p_parent = nullptr);
     virtual ~TiledEngine() {}
 
     uint tileSize() const;

@@ -9,7 +9,7 @@ class LIFECORE_EXPORT BasicEngine : public Engine {
     Q_INTERFACES(Engine)
 
 public:
-    explicit BasicEngine(std::shared_ptr<World> p_world, CellRules& m_rules);
+    explicit BasicEngine(QObject* p_parent = nullptr);
     ~BasicEngine() {}
 
 protected:
