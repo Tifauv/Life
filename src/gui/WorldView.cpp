@@ -33,12 +33,13 @@ QSize WorldView::sizeHint() const {
 
 
 bool WorldView::hasHeightForWidth() const {
-    return true;
+    return m_world->height() == m_world->width();
 }
 
 
 int WorldView::heightForWidth(int p_width) const {
-    return p_width;
+    return p_width * m_world->height() / m_world->width();
+}
 
 
 void WorldView::setImage(QImage* p_image) {
