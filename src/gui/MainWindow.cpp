@@ -29,7 +29,7 @@ QWidget() {
     actionsLayout->addWidget(m_speedSld);
 
     // Content view
-    m_worldView = new WorldView(p_world);
+    m_worldView = new WorldView(p_world->frontImage());
 
     // Control row
     QHBoxLayout* controlLayout = new QHBoxLayout;
@@ -133,7 +133,8 @@ void MainWindow::detectStop(uint p_changes) {
 }
 
 
-void MainWindow::stepFinished() {
+void MainWindow::stepFinished(QImage* p_world) {
+    m_worldView->setImage(p_world);
     if (!m_beat->isActive()) {
         m_stepBtn->setDisabled(false);
         m_playBtn->setDisabled(false);

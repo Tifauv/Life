@@ -10,14 +10,18 @@
 class LIFECORE_EXPORT World : public QObject {
 	Q_OBJECT
 
+	Q_PROPERTY(QSize size  READ size)
+	Q_PROPERTY(int width   READ width)
+	Q_PROPERTY(int height  READ height)
+
 public:
-	explicit World(const QSize p_size);
-	explicit World(int p_width, int p_height);
+	explicit World(const QSize p_size, QObject* p_parent = nullptr);
+	explicit World(int p_width, int p_height, QObject* p_parent = nullptr);
 
 	const QSize size() const;
 	int width() const;
 	int height() const;
-	const QImage& frontImage() const;
+	QImage* frontImage() const;
 
 	void init();
 	void swap();
@@ -31,9 +35,6 @@ public:
 	void setDeadAt(int p_x, int p_y);
 
 	uint countAliveAround(int p_x, int p_y) const;
-
-Q_SIGNALS:
-	void updated();
 
 private:
 	const QSize m_size;

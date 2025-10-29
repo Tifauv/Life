@@ -4,12 +4,10 @@
 #include <QRectF>
 
 
-WorldView::WorldView(std::shared_ptr<World> p_world, QWidget* p_parent):
+WorldView::WorldView(QImage* p_world, QWidget* p_parent):
 QWidget(p_parent),
 m_world(p_world),
 m_zoom(1) {
-    QObject::connect(p_world.get(), &World::updated,
-                     this,          qOverload<>(&QWidget::update));
 }
 
 
@@ -41,6 +39,11 @@ bool WorldView::hasHeightForWidth() const {
 
 int WorldView::heightForWidth(int p_width) const {
     return p_width;
+
+
+void WorldView::setImage(QImage* p_image) {
+    m_world = p_image;
+    update();
 }
 
 
@@ -48,6 +51,6 @@ void WorldView::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     painter.drawImage(
         QRectF(0, 0, width(), height()),
-        m_world->frontImage(),
+        *m_world,
         QRectF(0, 0, m_world->width(), m_world->height()));
 }

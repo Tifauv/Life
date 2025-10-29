@@ -1,21 +1,20 @@
 #ifndef WorldView_hpp
 #define WorldView_hpp
 
+#include <QImage>
 #include <QWidget>
-
-#include "World.hpp"
 
 
 class WorldView : public QWidget {
 	Q_OBJECT
 
-    Q_PROPERTY(uint zoom READ zoom WRITE setZoom)
+	Q_PROPERTY(uint zoom  READ zoom  WRITE setZoom)
 
 public:
-	explicit WorldView(std::shared_ptr<World> p_world, QWidget* p_parent = nullptr);
+	explicit WorldView(QImage* p_world, QWidget* p_parent = nullptr);
 
-    uint zoom() const;
-    void setZoom(uint p_zoom);
+	uint zoom() const;
+	void setZoom(uint p_zoom);
 
 	QSize minimumSizeHint() const override;
 	QSize sizeHint() const override;
@@ -23,12 +22,14 @@ public:
 	bool hasHeightForWidth() const override;
 	int heightForWidth(int p_width) const override;
 
+	void setImage(QImage*);
+
 protected:
 	void paintEvent(QPaintEvent*) override;
 
 private:
-    std::shared_ptr<World> m_world;
-    uint m_zoom;
+	QImage* m_world;
+	uint m_zoom;
 };
 
 #endif

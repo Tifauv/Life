@@ -3,7 +3,8 @@
 #include <QDebug>
 
 
-World::World(const QSize p_size):
+World::World(const QSize p_size, QObject* p_parent):
+QObject(p_parent),
 m_size(p_size),
 m_image1(m_size, QImage::Format_Mono),
 m_image2(m_size, QImage::Format_Mono),
@@ -13,8 +14,8 @@ m_backImage(&m_image2) {
 }
 
 
-World::World(int p_width, int p_height):
-World(QSize(p_width, p_height)) {
+World::World(int p_width, int p_height, QObject* p_parent):
+World(QSize(p_width, p_height), p_parent) {
 }
 
 
@@ -32,8 +33,8 @@ int World::height() const {
     return m_size.height();
 }
 
-const QImage& World::frontImage() const {
-    return *m_frontImage;
+QImage* World::frontImage() const {
+    return m_frontImage;
 }
 
 
@@ -47,7 +48,6 @@ void World::swap() {
     QImage* temp = m_backImage;
     m_backImage = m_frontImage;
     m_frontImage = temp;
-    Q_EMIT updated();
 }
 
 

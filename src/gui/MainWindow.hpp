@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "World.hpp"
 #include "WorldView.hpp"
 
 
@@ -20,7 +21,7 @@ public:
 
 public Q_SLOTS:
     void detectStop(uint p_changes);
-    void stepFinished();
+    void stepFinished(QImage*);
 
 Q_SIGNALS:
     void step();
