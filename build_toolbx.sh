@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME=dev-life-fc42
+NAME=dev-life
 PKGS="cmake
     extra-cmake-modules
     qt6-qtbase-devel
