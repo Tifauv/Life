@@ -7,11 +7,11 @@ QWidget() {
     // Actions row
     QHBoxLayout* actionsLayout = new QHBoxLayout;
 
-    m_stepBtn = new QPushButton(QStringLiteral(">|"));
+    m_stepBtn = new QPushButton(QStringLiteral("\u23EF"));
     m_stepBtn->setToolTip(QStringLiteral("One step"));
     actionsLayout->addWidget(m_stepBtn);
 
-    m_playBtn = new QPushButton(QStringLiteral(">"));
+    m_playBtn = new QPushButton(QStringLiteral("\u23F5"));
     m_playBtn->setToolTip(QStringLiteral("Play"));
     actionsLayout->addWidget(m_playBtn);
 
@@ -46,7 +46,7 @@ QWidget() {
     m_zoomSld->setTickInterval(1);
     controlLayout->addWidget(m_zoomSld);
 
-    m_zoomLbl = new QLabel(QStringLiteral("x1"));
+    m_zoomLbl = new QLabel(QStringLiteral("\u27151"));
     controlLayout->addWidget(m_zoomLbl);
 
     // Main layout
@@ -77,7 +77,7 @@ void MainWindow::start() {
                         this,      &MainWindow::start);
 
     m_stepBtn->setDisabled(true);
-    m_playBtn->setText(QStringLiteral("||"));
+    m_playBtn->setText(QStringLiteral("\u23F8"));
     m_playBtn->setToolTip(QStringLiteral("Pause"));
 
     QObject::connect(m_playBtn, &QPushButton::clicked,
@@ -93,7 +93,7 @@ void MainWindow::pause() {
     QObject::disconnect(m_playBtn, &QPushButton::clicked,
                         this,      &MainWindow::pause);
 
-    m_playBtn->setText(QStringLiteral(">"));
+    m_playBtn->setText(QStringLiteral("\u23F5"));
     m_playBtn->setToolTip(QStringLiteral("Play"));
     m_stepBtn->setDisabled(false);
  
@@ -118,7 +118,7 @@ void MainWindow::updateZoom(int p_zoom) {
     int zoom = 1 << (p_zoom - 1);
 
     m_worldView->setZoom(zoom);
-    m_zoomLbl->setText(QStringLiteral("x") + QString::number(zoom));
+    m_zoomLbl->setText(QStringLiteral("\u2715") + QString::number(zoom));
 }
 
 
