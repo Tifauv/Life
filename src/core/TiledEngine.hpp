@@ -11,7 +11,7 @@ class LIFECORE_EXPORT TiledEngine : public Engine {
     Q_OBJECT
     Q_INTERFACES(Engine)
 
-    Q_PROPERTY(uint tileSize  READ tileSize  WRITE setTileSize)
+    Q_PROPERTY(uint tileSize  READ tileSize  WRITE setTileSize  NOTIFY tileSizeChanged)
 
 public:
     explicit TiledEngine(QObject* p_parent = nullptr);
@@ -20,8 +20,11 @@ public:
     uint tileSize() const;
     void setTileSize(uint p_size);
 
+Q_SIGNALS:
+    void tileSizeChanged(uint);
+
 protected:
-    void prepareTiles(int p_worldWidth, int p_worldHeight);
+    void prepareTiles(int p_worldWidth, int p_worldHeight, uint p_tileSize);
     
     const QList<QRect>& tiles() const;
 

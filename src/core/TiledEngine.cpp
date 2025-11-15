@@ -1,5 +1,6 @@
 #include "TiledEngine.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <QDebug>
 
@@ -15,16 +16,19 @@ uint TiledEngine::tileSize() const {
 
 
 void TiledEngine::setTileSize(uint p_size) {
-    m_tileSize = p_size;
-    prepareTiles(world()->width(), world()->height());
+    if (p_size > 0 && p_size < std::min(world()->width(), world()->height())) {
+        m_tileSize = p_size;
+        prepareTiles(world()->width(), world()->height(), p_size);
+        Q_EMIT tileSizeChanged(m_tileSize);
+    }
 }
 
 
-void TiledEngine::prepareTiles(int p_worldWidth, int p_worldHeight) {
-    uint horizontalTiles   = p_worldWidth / m_tileSize;
-    uint horizontalRemains = p_worldWidth % m_tileSize;
-    uint verticalTiles   = p_worldHeight  / m_tileSize;
-    uint verticalRemains = p_worldHeight  % m_tileSize;
+void TiledEngine::prepareTiles(int p_worldWidth, int p_worldHeight, uint p_tileSize) {
+    uint horizontalTiles   = p_worldWidth / p_tileSize;
+    uint horizontalRemains = p_worldWidth % p_tileSize;
+    uint verticalTiles   = p_worldHeight  / p_tileSize;
+    uint verticalRemains = p_worldHeight  % p_tileSize;
 
     bool hasHorizontalRemains = horizontalRemains > 0;
     bool hasVerticalRemains   = verticalRemains   > 0;
@@ -35,42 +39,42 @@ void TiledEngine::prepareTiles(int p_worldWidth, int p_worldHeight) {
     + (hasVerticalRemains   ? horizontalTiles : 0)
     + (hasBlockRemains ? 1 : 0);
 
-    qDebug() << nbTiles << " tiles :";
-    qDebug() << "  - " << (horizontalTiles * verticalTiles) << " tiles with size " << m_tileSize << "x" << m_tileSize;
-    qDebug() << "  - " << (hasHorizontalRemains ? verticalTiles : 0) << " vertical tiles with size " << horizontalRemains << "x" << m_tileSize;
-    qDebug() << "  - " << (hasVerticalRemains ? horizontalTiles : 0) << " horizontal tiles with size " << m_tileSize << "x" << verticalRemains;
-    qDebug() << "  - " << (hasBlockRemains ? 1 : 0) << " block tile with size " << horizontalRemains << "x" << verticalRemains;
+    qInfo() << nbTiles << " tiles :";
+    qInfo() << "  - " << (horizontalTiles * verticalTiles) << " tiles with size " << p_tileSize << "x" << p_tileSize;
+    qInfo() << "  - " << (hasHorizontalRemains ? verticalTiles : 0) << " vertical tiles with size " << horizontalRemains << "x" << p_tileSize;
+    qInfo() << "  - " << (hasVerticalRemains ? horizontalTiles : 0) << " horizontal tiles with size " << p_tileSize << "x" << verticalRemains;
+    qInfo() << "  - " << (hasBlockRemains ? 1 : 0) << " block tile with size " << horizontalRemains << "x" << verticalRemains;
 
     QList<QRect> tiles;
     tiles.reserve(nbTiles);
 
     // Add all full tiles
-    qDebug() << "== " << m_tileSize << "x" << m_tileSize << " tiles :";
+    qDebug() << "== " << p_tileSize << "x" << p_tileSize << " tiles :";
     for (uint vertTile=0; vertTile<verticalTiles; vertTile++) {
         for (uint horizTile=0; horizTile<horizontalTiles; horizTile++) {
-            tiles.append(QRect(horizTile * m_tileSize, vertTile * m_tileSize,
-                               m_tileSize, m_tileSize));
-            qDebug() << "  [" << (horizTile * m_tileSize) << ", " << (vertTile * m_tileSize) << "]";
+            tiles.append(QRect(horizTile * p_tileSize, vertTile * p_tileSize,
+                               p_tileSize, p_tileSize));
+            qDebug() << "  [" << (horizTile * p_tileSize) << ", " << (vertTile * p_tileSize) << "]";
         }
     }
 
     // Add vertical remains
     if (hasVerticalRemains) {
-        qDebug() << "== " << horizontalRemains << "x" << m_tileSize << " tiles :";
+        qDebug() << "== " << horizontalRemains << "x" << p_tileSize << " tiles :";
         for (uint vertTile=0; vertTile<verticalTiles; vertTile++) {
-            tiles.append(QRect(p_worldWidth - horizontalRemains, vertTile * m_tileSize,
-                                horizontalRemains, m_tileSize));
-            qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (vertTile * m_tileSize) << "]";
+            tiles.append(QRect(p_worldWidth - horizontalRemains, vertTile * p_tileSize,
+                                horizontalRemains, p_tileSize));
+            qDebug() << "  [" << (p_worldWidth - horizontalRemains) << ", " << (vertTile * p_tileSize) << "]";
         }
     }
 
     // Add horizontal remains
     if (hasHorizontalRemains) {
-        qDebug() << "== " << m_tileSize << "x" << verticalRemains << " tiles :";
+        qDebug() << "== " << p_tileSize << "x" << verticalRemains << " tiles :";
         for (uint horizTile=0; horizTile<horizontalTiles; horizTile++) {
-            tiles.append(QRect(horizTile * m_tileSize, p_worldHeight - verticalRemains,
-                               m_tileSize, verticalRemains));
-            qDebug() << "  [" << (horizTile * m_tileSize) << ", " << (p_worldHeight -verticalRemains) << "]";
+            tiles.append(QRect(horizTile * p_tileSize, p_worldHeight - verticalRemains,
+                               p_tileSize, verticalRemains));
+            qDebug() << "  [" << (horizTile * p_tileSize) << ", " << (p_worldHeight -verticalRemains) << "]";
         }
     }
 
@@ -114,8 +118,12 @@ uint TiledEngine::processTile(World& p_world, const QRect& p_tile) {
 
     // Process the tile, one cell at a time
     for (int y=startY; y<=endY; y++)
-        for (int x=startX; x<=endX; x++)
-            changes += (processCell(p_world, x, y) ? 1 : 0);
+        for (int x=startX; x<=endX; x++) {
+            if (processCell(p_world, x, y)) {
+                qDebug() << "TiledEngine: [Step " << step() << "] Change at [" << x << "," << y << "]";
+                changes++;
+            }
+        }
     
     return changes;
 }
