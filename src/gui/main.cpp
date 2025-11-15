@@ -37,9 +37,9 @@ int main(int p_argc, char* p_argv[]) {
 	MainWindow mainWindow(world);
 
 	QObject::connect(&mainWindow, &MainWindow::step,
-					 &engine,     &Engine::run);
 	QObject::connect(&engine,     &Engine::cellsChanged,
 					&mainWindow,  &MainWindow::detectStop);
+					 &engine,     &Engine::runStep);
 	QObject::connect(&engine,     &Engine::worldUpdated,
 					 &mainWindow, &MainWindow::stepFinished);
 

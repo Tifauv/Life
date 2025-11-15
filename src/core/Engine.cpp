@@ -25,7 +25,7 @@ void Engine::setCellRules(const CellRules* p_rules) {
 }
 
 
-void Engine::run() {
+void Engine::runStep() {
     QElapsedTimer timer;
 
     qDebug() << "Starting engine pass...";

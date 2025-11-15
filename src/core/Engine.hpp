@@ -24,7 +24,7 @@ public:
     void setCellRules(const CellRules* p_rules);
 
 public Q_SLOTS:
-    void run();
+    void runStep();
 
 Q_SIGNALS:
     void cellsChanged(uint);
