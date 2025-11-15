@@ -32,7 +32,7 @@ int main(int p_argc, char* p_argv[]) {
 	QQmlApplicationEngine engine;
 
 	engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
-	engine.loadFromModule("eu.catwitch.life", "MainWindow");
+	engine.loadFromModule("eu.catwitch.life.qml", "MainWindow");
 
 	// Fail if the main window was not found
 	if (engine.rootObjects().isEmpty()) {

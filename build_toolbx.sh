@@ -6,6 +6,7 @@ PKGS="cmake
     qt6-qtbase-devel
     qt6-qtdeclarative-devel
     qt6-qtquickcontrols2-devel
+    qt6-qtgraphs-devel
     kf6-kirigami2-devel
     kf6-ki18n-devel
     kf6-kcoreaddons-devel

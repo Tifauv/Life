@@ -8,9 +8,11 @@
 #include <QSlider>
 #include <QTimer>
 #include <QWidget>
+#include <QQuickWidget>
 
 #include "World.hpp"
 #include "WorldView.hpp"
+#include "StatsGraph.hpp"
 
 
 class MainWindow : public QWidget {
@@ -36,17 +38,20 @@ protected Q_SLOTS:
     void updateZoom(int p_zoom);
 
 protected:
+    void initGraphWidget();
     void emitStep();
     void detectStop(uint p_changes);
 
 private:
-    QPushButton* m_playBtn;  
-    QPushButton* m_stepBtn;
-    QSlider*     m_speedSld;
-    QSlider*     m_zoomSld;
-    QLabel*      m_zoomLbl;
-    QTimer*      m_beat;
-    WorldView*   m_worldView;
+    QPushButton*  m_playBtn;
+    QPushButton*  m_stepBtn;
+    QSlider*      m_speedSld;
+    QSlider*      m_zoomSld;
+    QLabel*       m_zoomLbl;
+    QTimer*       m_beat;
+    WorldView*    m_worldView;
+    QQuickWidget* m_graphWidget;
+    StatsGraph*   m_graph;
 };
 
 #endif

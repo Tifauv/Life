@@ -1,13 +1,26 @@
 add_executable( Life
+    StatsGraph.cpp
     WorldView.cpp
     MainWindow.cpp
     main.cpp
 )
 
+ecm_add_qml_module( Life
+    URI eu.catwitch.life
+    VERSION 1.0
+)
+
+ecm_target_qml_sources( Life
+    SOURCES
+    StatsGraph.qml
+)
+
 target_link_libraries( Life
     PRIVATE
     Qt6::Core
+    Qt6::Graphs
     Qt6::Gui
+    Qt6::QuickWidgets
     Qt6::Widgets
     LifeCore
 )

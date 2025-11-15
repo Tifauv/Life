@@ -1,11 +1,15 @@
 #include "MainWindow.hpp"
 
+#include <QGraphsTheme>
+#include <QQmlContext>
+
+
 MainWindow::MainWindow(std::shared_ptr<World> p_world) :
 QWidget() {
     setWindowTitle(QStringLiteral("Life"));
 
     // Actions row
-    QHBoxLayout* actionsLayout = new QHBoxLayout;
+    auto actionsLayout = new QHBoxLayout;
 
     m_stepBtn = new QPushButton(QStringLiteral("\u23EF"));
     m_stepBtn->setToolTip(QStringLiteral("One step"));
@@ -15,7 +19,7 @@ QWidget() {
     m_playBtn->setToolTip(QStringLiteral("Play"));
     actionsLayout->addWidget(m_playBtn);
 
-    QLabel* speedLbl = new QLabel(QStringLiteral("Speed: "));
+    auto speedLbl = new QLabel(QStringLiteral("Speed: "));
     actionsLayout->addWidget(speedLbl);
 
     m_speedSld = new QSlider(Qt::Horizontal);
@@ -28,11 +32,8 @@ QWidget() {
     m_speedSld->setTickInterval(50);
     actionsLayout->addWidget(m_speedSld);
 
-    // Content view
-    m_worldView = new WorldView(p_world->frontImage());
-
     // Control row
-    QHBoxLayout* controlLayout = new QHBoxLayout;
+    auto controlLayout = new QHBoxLayout;
 
     controlLayout->addWidget(new QLabel(QStringLiteral("Zoom: ")));
 
@@ -49,11 +50,22 @@ QWidget() {
     m_zoomLbl = new QLabel(QStringLiteral("\u27151"));
     controlLayout->addWidget(m_zoomLbl);
 
+    // Content view
+    m_worldView = new WorldView(p_world->frontImage());
+
+    // Graph row
+    auto graphLayout = new QHBoxLayout;
+
+    m_graph = new StatsGraph;
+    initGraphWidget();
+    graphLayout->addWidget(m_graphWidget);
+
     // Main layout
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(actionsLayout);
-    mainLayout->addWidget(m_worldView, 0, Qt::AlignCenter);
     mainLayout->addLayout(controlLayout);
+    mainLayout->addWidget(m_worldView, 0, Qt::AlignCenter);
+    mainLayout->addLayout(graphLayout);
     setLayout(mainLayout);
 
     QObject::connect(m_playBtn, &QPushButton::clicked,
@@ -136,6 +148,16 @@ void MainWindow::updateZoom(int p_zoom) {
 
     m_worldView->setZoom(zoom);
     m_zoomLbl->setText(QStringLiteral("\u2715") + QString::number(zoom));
+}
+
+
+// INTERNAL METHODS
+void MainWindow::initGraphWidget() {
+    m_graphWidget = new QQuickWidget;
+
+    m_graphWidget->engine()->rootContext()->setContextProperty(QStringLiteral("graph"), m_graph);
+    m_graphWidget->loadFromModule("eu.catwitch.life", "StatsGraph");
+    m_graphWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 }
 
 

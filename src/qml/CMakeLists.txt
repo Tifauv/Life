@@ -4,7 +4,7 @@ add_executable( Life_qml
 )
 
 ecm_add_qml_module( Life_qml
-    URI eu.catwitch.life
+    URI eu.catwitch.life.qml
     VERSION 1.0
     SOURCES
     WorldItem.hpp

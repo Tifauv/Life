@@ -17,8 +17,10 @@ find_package( Qt6 REQUIRED
     Core
     Concurrent
     Gui
+    Graphs
     Quick
     QuickControls2
+    QuickWidgets
     Widgets
 )
 
