@@ -1,6 +1,8 @@
 add_executable( Life_qml
     WorldItem.hpp
     WorldItem.cpp
+    WorldView.hpp
+    WorldView.cpp
     main.cpp
 )
 
@@ -9,6 +11,7 @@ ecm_add_qml_module( Life_qml
     VERSION 1.0
     SOURCES
     WorldItem.hpp
+    WorldView.hpp
 )
 ecm_target_qml_sources( Life_qml
     SOURCES
