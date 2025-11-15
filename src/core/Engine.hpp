@@ -13,21 +13,24 @@ class LIFECORE_EXPORT Engine : public QObject {
 
     Q_PROPERTY(World*           world      READ world  WRITE setWorld)
     Q_PROPERTY(const CellRules* cellRules              WRITE setCellRules)
+    Q_PROPERTY(uint             step       READ step                       NOTIFY stepFinished)
 
 public:
     explicit Engine(QObject* p_parent = nullptr);
     virtual ~Engine() {}
 
     World* world() const;
+    uint   step()  const;
 
     void setWorld(World* p_world);
     void setCellRules(const CellRules* p_rules);
 
 public Q_SLOTS:
+    void init();
     void runStep();
 
 Q_SIGNALS:
-    void cellsChanged(uint);
+    void stepFinished(uint step, uint changes, qint64 elapsed);
     void worldUpdated(QImage*);
 
 protected:
@@ -37,6 +40,7 @@ protected:
 private:
     World*           m_world;
     const CellRules* m_cellRules;
+    uint             m_step;
 };
 Q_DECLARE_INTERFACE(Engine, "Engine")
 

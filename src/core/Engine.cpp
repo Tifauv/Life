@@ -6,12 +6,18 @@
 Engine::Engine(QObject* p_parent):
 QObject(p_parent),
 m_world(nullptr),
-m_cellRules(nullptr) {
+m_cellRules(nullptr),
+m_step(0) {
 }
 
 
 World* Engine::world() const {
     return m_world;
+}
+
+
+uint Engine::step() const {
+    return m_step;
 }
 
 
@@ -25,21 +31,27 @@ void Engine::setCellRules(const CellRules* p_rules) {
 }
 
 
+void Engine::init() {
+    m_step = 0;
+}
+
+
 void Engine::runStep() {
     QElapsedTimer timer;
 
-    qDebug() << "Starting engine pass...";
+    uint step = ++m_step;
+    qInfo() << "Engine: [Step " << step << "] Starting...";
     timer.start();
     uint changes = processWorld(*m_world);
     qint64 elapsed = timer.elapsed();
-    qDebug() << "Durée : " << elapsed << " (ms)";
+    qInfo() << "Engine: [Step " << step << "] Finished in " << elapsed << " ms : " << changes << " changes.";
 
-    //qDebug() << "Swapping...";
     m_world->swap();
+    qInfo() << "Engine: [Step " << step << "] World swapped.";
 
-    //qDebug() << "Engine pass finished.";
-    Q_EMIT cellsChanged(changes);
     Q_EMIT worldUpdated(m_world->frontImage());
+    Q_EMIT stepFinished(step, changes, elapsed);
+    qInfo() << "Engine: [Step " << step << "] Signals emitted.";
 }
 
 

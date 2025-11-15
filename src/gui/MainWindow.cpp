@@ -72,6 +72,23 @@ QWidget() {
 }
 
 
+// PUBLIC SLOTS
+void MainWindow::onStepFinished(uint p_stepId, uint p_changes, qint64 p_elapsed) {
+    detectStop(p_changes);
+    m_graph->appendSlice(p_stepId, p_changes, p_elapsed);
+}
+
+
+void MainWindow::onWorldUpdated(QImage* p_world) {
+    m_worldView->setImage(p_world);
+    if (!m_beat->isActive()) {
+        m_stepBtn->setDisabled(false);
+        m_playBtn->setDisabled(false);
+    }
+}
+
+
+// INTERNAL SLOTS
 void MainWindow::start() {
     QObject::disconnect(m_playBtn, &QPushButton::clicked,
                         this,      &MainWindow::start);
@@ -130,13 +147,4 @@ void MainWindow::emitStep() {
 void MainWindow::detectStop(uint p_changes) {
     if (p_changes == 0 && m_beat->isActive())
         pause();
-}
-
-
-void MainWindow::stepFinished(QImage* p_world) {
-    m_worldView->setImage(p_world);
-    if (!m_beat->isActive()) {
-        m_stepBtn->setDisabled(false);
-        m_playBtn->setDisabled(false);
-    }
 }

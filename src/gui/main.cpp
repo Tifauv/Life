@@ -32,16 +32,17 @@ int main(int p_argc, char* p_argv[]) {
 	engine.setWorld(world.get());
 	engine.setCellRules(&rules);
 	engine.setTileSize(32);
+	engine.init();
 
 	// Create the main window & layout
 	MainWindow mainWindow(world);
 
 	QObject::connect(&mainWindow, &MainWindow::step,
-	QObject::connect(&engine,     &Engine::cellsChanged,
-					&mainWindow,  &MainWindow::detectStop);
 					 &engine,     &Engine::runStep);
 	QObject::connect(&engine,     &Engine::worldUpdated,
-					 &mainWindow, &MainWindow::stepFinished);
+					 &mainWindow, &MainWindow::onWorldUpdated);
+	QObject::connect(&engine,     &Engine::stepFinished,
+					 &mainWindow, &MainWindow::onStepFinished);
 
 	mainWindow.show();
 

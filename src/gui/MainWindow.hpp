@@ -20,8 +20,8 @@ public:
     explicit MainWindow(std::shared_ptr<World> p_world);
 
 public Q_SLOTS:
-    void detectStop(uint p_changes);
-    void stepFinished(QImage*);
+    void onStepFinished(uint p_stepId, uint p_changes, qint64 p_elapsed);
+    void onWorldUpdated(QImage*);
 
 Q_SIGNALS:
     void step();
@@ -37,7 +37,8 @@ protected Q_SLOTS:
 
 protected:
     void emitStep();
-    
+    void detectStop(uint p_changes);
+
 private:
     QPushButton* m_playBtn;  
     QPushButton* m_stepBtn;
