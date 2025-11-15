@@ -35,7 +35,7 @@ QSize WorldView::sizeHint() const {
 
 
 bool WorldView::hasHeightForWidth() const {
-    return m_world->height() == m_world->width();
+    return true;
 }
 
 
