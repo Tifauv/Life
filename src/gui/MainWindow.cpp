@@ -32,9 +32,6 @@ QWidget() {
     m_speedSld->setTickInterval(50);
     actionsLayout->addWidget(m_speedSld);
 
-    // Content view
-    m_worldView = new WorldView(p_world->frontImage());
-
     // Control row
     auto controlLayout = new QHBoxLayout;
 
