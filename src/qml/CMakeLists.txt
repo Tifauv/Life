@@ -1,4 +1,5 @@
 add_executable( Life_qml
+    WorldItem.hpp
     WorldItem.cpp
     main.cpp
 )

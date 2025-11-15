@@ -1,6 +1,9 @@
 add_executable( Life
+    StatsGraph.hpp
     StatsGraph.cpp
+    WorldView.hpp
     WorldView.cpp
+    MainWindow.hpp
     MainWindow.cpp
     main.cpp
 )
