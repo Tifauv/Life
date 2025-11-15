@@ -2,12 +2,14 @@
 
 #include <QPainter>
 #include <QRectF>
+#include <QSizePolicy>
 
 
 WorldView::WorldView(QImage* p_world, QWidget* p_parent):
 QWidget(p_parent),
 m_world(p_world),
 m_zoom(1) {
+    setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 }
 
 
@@ -33,11 +35,14 @@ QSize WorldView::sizeHint() const {
 
 
 bool WorldView::hasHeightForWidth() const {
-    return m_world->height() == m_world->width();
+    return true;
 }
 
 
 int WorldView::heightForWidth(int p_width) const {
+    if (p_width > m_world->width() * m_zoom)
+        return m_world->height() * m_zoom;
+
     return p_width * m_world->height() / m_world->width();
 }
 
