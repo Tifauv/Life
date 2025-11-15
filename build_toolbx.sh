@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME=dev-life-fc42
+NAME=dev-life-f43
 PKGS="cmake
     extra-cmake-modules
     qt6-qtbase-devel
@@ -12,7 +12,7 @@ PKGS="cmake
     kf6-kiconthemes-devel
     kf6-qqc2-desktop-style"
 
-toolbox create "${NAME}" --distro Fedora --release 42
+toolbox create "${NAME}" --distro fedora --release 43
 toolbox run -c "${NAME}" sudo dnf --assumeyes update
 toolbox run -c "${NAME}" sudo dnf --assumeyes install ${PKGS}
 
