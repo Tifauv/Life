@@ -62,8 +62,12 @@ bool World::wasDeadAt(int p_x, int p_y) const {
 
 
 bool World::changedAt(int p_x, int p_y) const {
-    return m_frontImage->valid(p_x, p_y) &&
-        m_frontImage->pixelIndex(p_x, p_y) != m_backImage->pixelIndex(p_x, p_y);
+    if (m_frontImage->valid(p_x, p_y) &&
+        m_frontImage->pixelIndex(p_x, p_y) != m_backImage->pixelIndex(p_x, p_y)) {
+        qDebug() << "World: [" << p_x << "," << p_y << "] changed to " << (m_backImage->pixelIndex(p_x, p_y) == COLOR_ALIVE ? "ALIVE" : "DEAD") << ".";
+        return true;
+    }
+    return false;
 }
 
 
