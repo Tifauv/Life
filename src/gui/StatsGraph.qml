@@ -69,7 +69,6 @@ Item {
             min: 0
             max: Math.max(1, graph.maxDuration * 1.05)
             labelFormat: "%G ms"
-            tickInterval: 1
         }
 
         seriesList: [ graph.durationSeries ]
