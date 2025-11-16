@@ -1,6 +1,7 @@
 # Git
 .git-credentials
 # CMake
+CMakeLists.txt.user
 build
 # Kate
 .kateproject.build
