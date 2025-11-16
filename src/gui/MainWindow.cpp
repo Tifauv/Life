@@ -26,8 +26,8 @@ QWidget() {
     m_speedSld->setMinimum(0);
     m_speedSld->setMaximum(1000);
     m_speedSld->setSingleStep(50);
-    m_speedSld->setPageStep(200);
-    m_speedSld->setValue(250);
+    m_speedSld->setPageStep(100);
+    m_speedSld->setValue(100);
     m_speedSld->setTickPosition(QSlider::TicksAbove);
     m_speedSld->setTickInterval(50);
     actionsLayout->addWidget(m_speedSld);
