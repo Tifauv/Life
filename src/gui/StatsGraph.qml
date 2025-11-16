@@ -23,6 +23,7 @@ Item {
         }
 
         axisX: ValueAxis {
+            titleText: "Steps"
             min: 0
             max: Math.max(200, graph.changesSeries.count)
             subTickCount: 5
@@ -30,9 +31,11 @@ Item {
         }
 
         axisY: ValueAxis {
+            titleText: "Changes"
             min: 0
             max: Math.max(1, graph.maxChanges * 1.05)
             subTickCount: 0
+            labelFormat: "%G"
         }
 
         seriesList: [ graph.changesSeries ]
@@ -54,6 +57,7 @@ Item {
         }
 
         axisX: ValueAxis {
+            titleText: "Steps"
             min: 0
             max: Math.max(200, graph.durationSeries.count)
             subTickCount: 5
@@ -61,9 +65,11 @@ Item {
         }
 
         axisY: ValueAxis {
+            titleText: "Duration"
             min: 0
             max: Math.max(1, graph.maxDuration * 1.05)
-            subTickCount: 0
+            labelFormat: "%G ms"
+            tickInterval: 1
         }
 
         seriesList: [ graph.durationSeries ]

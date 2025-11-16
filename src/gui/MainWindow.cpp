@@ -54,18 +54,15 @@ QWidget() {
     m_worldView = new WorldView(p_world->frontImage());
 
     // Graph row
-    auto graphLayout = new QHBoxLayout;
-
     m_graph = new StatsGraph;
     initGraphWidget();
-    graphLayout->addWidget(m_graphWidget);
 
     // Main layout
     auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(actionsLayout);
     mainLayout->addLayout(controlLayout);
     mainLayout->addWidget(m_worldView, 0, Qt::AlignCenter);
-    mainLayout->addLayout(graphLayout);
+    mainLayout->addWidget(m_graphWidget);
     setLayout(mainLayout);
 
     QObject::connect(m_playBtn, &QPushButton::clicked,
@@ -157,6 +154,7 @@ void MainWindow::initGraphWidget() {
 
     m_graphWidget->engine()->rootContext()->setContextProperty(QStringLiteral("graph"), m_graph);
     m_graphWidget->loadFromModule("eu.catwitch.life", "StatsGraph");
+    m_graphWidget->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
     m_graphWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 }
 
