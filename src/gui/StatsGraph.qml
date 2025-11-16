@@ -48,7 +48,7 @@ Item {
         width: parent.width * 0.5
 
         theme: GraphsTheme {
-            theme: GraphsTheme.Theme.BlueSeries
+            theme: GraphsTheme.Theme.OrangeSeries
             labelBorderVisible: true
             labelBackgroundVisible: true
         }

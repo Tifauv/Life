@@ -8,8 +8,6 @@ StatsGraph::StatsGraph(QObject* p_parent):
 QObject(p_parent),
 m_changesSeries(new QLineSeries),
 m_durationSeries(new QLineSeries) {
-    m_changesSeries->setColor(QColorConstants::Svg::dodgerblue);
-    m_durationSeries->setColor(QColorConstants::Svg::darkorange);
 }
 
 
