@@ -1,6 +1,9 @@
 #!/bin/bash
 
-NAME=dev-life-f43
+# Name of the development container
+NAME=dev-life
+
+# List of packages to install inside the container
 PKGS="cmake
     extra-cmake-modules
     qt6-qtbase-devel
@@ -16,4 +19,3 @@ PKGS="cmake
 toolbox create "${NAME}" --distro fedora --release 43
 toolbox run -c "${NAME}" sudo dnf --assumeyes update
 toolbox run -c "${NAME}" sudo dnf --assumeyes install ${PKGS}
-
