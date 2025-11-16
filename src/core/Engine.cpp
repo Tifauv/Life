@@ -40,18 +40,18 @@ void Engine::runStep() {
     QElapsedTimer timer;
 
     uint step = ++m_step;
-    qInfo() << "Engine: [Step " << step << "] Starting...";
+    qDebug() << "Engine: [Step " << step << "] Starting...";
     timer.start();
     uint changes = processWorld(*m_world);
     qint64 elapsed = timer.elapsed();
     qInfo() << "Engine: [Step " << step << "] Finished in " << elapsed << " ms : " << changes << " changes.";
 
     m_world->swap();
-    qInfo() << "Engine: [Step " << step << "] World swapped.";
+    qDebug() << "Engine: [Step " << step << "] World swapped.";
 
     Q_EMIT worldUpdated(m_world->frontImage());
     Q_EMIT stepFinished(step, changes, elapsed);
-    qInfo() << "Engine: [Step " << step << "] Signals emitted.";
+    qDebug() << "Engine: [Step " << step << "] Signals emitted.";
 }
 
 
