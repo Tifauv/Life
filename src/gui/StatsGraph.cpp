@@ -8,6 +8,7 @@ StatsGraph::StatsGraph(QObject* p_parent):
 QObject(p_parent),
 m_changesSeries(new QLineSeries),
 m_durationSeries(new QLineSeries) {
+    clearSeries();
 }
 
 
