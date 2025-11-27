@@ -25,6 +25,9 @@ target_link_libraries( Life
     Qt6::Gui
     Qt6::QuickWidgets
     Qt6::Widgets
+    KF6::I18n
+    KF6::CoreAddons
+    KF6::IconThemes
     LifeCore
 )
 

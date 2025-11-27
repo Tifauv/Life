@@ -1,77 +1,105 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls as Controls
 import QtGraphs
+import org.kde.kirigami as Kirigami
 
 Item {
     id: mainView
     width: 800
     height: 180
 
-    GraphsView {
-        id: changesGraphView
+    Rectangle {
+        id: background
 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors.fill:parent
 
-        width: parent.width * 0.5
-
-        theme: GraphsTheme {
-            theme: GraphsTheme.Theme.BlueSeries
-            labelBorderVisible: true
-            labelBackgroundVisible: true
-        }
-
-        axisX: ValueAxis {
-            titleText: "Steps"
-            min: 0
-            max: Math.max(200, graph.changesSeries.count)
-            subTickCount: 5
-            subGridVisible: false
-        }
-
-        axisY: ValueAxis {
-            titleText: "Changes"
-            min: 0
-            max: Math.max(1, graph.maxChanges * 1.05)
-            subTickCount: 0
-            labelFormat: "%G"
-        }
-
-        seriesList: [ graph.changesSeries ]
+        color: Kirigami.Theme.backgroundColor
     }
 
-    GraphsView {
-        id: durationGraphView
+    GridLayout {
+        id: changesGraphLayout
 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
+        anchors.fill: parent
 
-        width: parent.width * 0.5
+        columns: 2
+        uniformCellWidths: true
 
-        theme: GraphsTheme {
-            theme: GraphsTheme.Theme.OrangeSeries
-            labelBorderVisible: true
-            labelBackgroundVisible: true
+        rowSpacing: 0
+
+        Controls.Label {
+            id: changesGraphTitle
+
+            Layout.leftMargin: changesGraphView.marginLeft
+
+            text: "Changes"
         }
 
-        axisX: ValueAxis {
-            titleText: "Steps"
-            min: 0
-            max: Math.max(200, graph.durationSeries.count)
-            subTickCount: 5
-            subGridVisible: false
+        Controls.Label {
+            id: durationGraphTitle
+
+            Layout.leftMargin: durationGraphView.marginLeft
+
+            text: "Duration"
         }
 
-        axisY: ValueAxis {
-            titleText: "Duration"
-            min: 0
-            max: Math.max(1, graph.maxDuration * 1.05)
-            labelFormat: "%G ms"
-            tickInterval: 1
+        GraphsView {
+            id: changesGraphView
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            theme: GraphsTheme {
+                theme: GraphsTheme.Theme.BlueSeries
+                labelBorderVisible: true
+                labelBackgroundVisible: true
+            }
+
+            axisX: ValueAxis {
+                titleText: "Steps"
+                min: 0
+                max: Math.max(200, graph.changesSeries.count)
+                subTickCount: 0
+                subGridVisible: false
+            }
+
+            axisY: ValueAxis {
+                min: 0
+                max: Math.max(1, graph.maxChanges * 1.05)
+                subTickCount: 0
+                labelFormat: "%g"
+            }
+
+            seriesList: [ graph.changesSeries ]
         }
 
-        seriesList: [ graph.durationSeries ]
+        GraphsView {
+            id: durationGraphView
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            theme: GraphsTheme {
+                theme: GraphsTheme.Theme.OrangeSeries
+                labelBorderVisible: true
+                labelBackgroundVisible: true
+            }
+
+            axisX: ValueAxis {
+                titleText: "Steps"
+                min: 0
+                max: Math.max(200, graph.durationSeries.count)
+                subTickCount: 0
+                subGridVisible: false
+            }
+
+            axisY: ValueAxis {
+                min: 0
+                max: Math.max(1, graph.maxDuration * 1.05)
+                labelFormat: "%g ms"
+            }
+
+            seriesList: [ graph.durationSeries ]
+        }
     }
 }
