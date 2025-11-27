@@ -5,6 +5,9 @@ project( Life VERSION 0.1.0 LANGUAGES CXX )
 find_package( ECM 6.0.0 REQUIRED NO_MODULE )
 set( CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
 
+# Require C++20
+set( CMAKE_CXX_STANDARD 20 )
+
 include( GenerateExportHeader )
 include( KDEInstallDirs6 )
 include( KDECMakeSettings    NO_POLICY_SCOPE )
