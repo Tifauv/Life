@@ -33,7 +33,7 @@ Kirigami.ApplicationWindow {
                 Controls.Button {
                     id: stepBtn
 
-                    text: ">|"
+                    text: "\u23EF"
                     Controls.ToolTip {
                         visible: stepBtn.hovered
                         text: i18n("One step")
@@ -47,7 +47,7 @@ Kirigami.ApplicationWindow {
                 Controls.Button {
                     id: playBtn
 
-                    text: ">"
+                    text: "\u23F5"
                     Controls.ToolTip.visible: playBtn.hovered
                     Controls.ToolTip.text: i18n("Play")
 
@@ -105,13 +105,13 @@ Kirigami.ApplicationWindow {
                     Controls.ToolTip {
                         parent: zoomSld.handle
                         visible: zoomSld.pressed
-                        text: "x" + (1 << (zoomSld.value.toFixed(1) -1))
+                        text: "\u2715" + (1 << (zoomSld.value.toFixed(1) -1))
                     }
                 }
 
                 Controls.Label {
                     id: zoomLbl
-                    text: "x1"
+                    text: "\u27151"
                 }
             }
         }
@@ -124,7 +124,7 @@ Kirigami.ApplicationWindow {
 
                 PropertyChanges {
                     target: playBtn
-                    text: "||"
+                    text: "\u23F8"
                     Controls.ToolTip.text: i18n("Pause")
                 }
             },
