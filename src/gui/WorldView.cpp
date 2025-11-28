@@ -1,5 +1,6 @@
 #include "WorldView.hpp"
 
+#include <utility>
 #include <QPainter>
 #include <QRectF>
 #include <QSizePolicy>
@@ -40,7 +41,7 @@ bool WorldView::hasHeightForWidth() const {
 
 
 int WorldView::heightForWidth(int p_width) const {
-    if (p_width > m_world->width() * m_zoom)
+    if (std::cmp_greater(p_width, m_world->width() * m_zoom))
         return m_world->height() * m_zoom;
 
     return p_width * m_world->height() / m_world->width();

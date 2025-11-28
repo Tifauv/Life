@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <utility>
 #include <QDebug>
 
 TiledEngine::TiledEngine(QObject* p_parent):
@@ -16,7 +17,7 @@ uint TiledEngine::tileSize() const {
 
 
 void TiledEngine::setTileSize(uint p_size) {
-    if (p_size > 0 && p_size < std::min(world()->width(), world()->height())) {
+    if (p_size > 0 && std::cmp_less(p_size, std::min(world()->width(), world()->height()))) {
         m_tileSize = p_size;
         prepareTiles(world()->width(), world()->height(), p_size);
         Q_EMIT tileSizeChanged(m_tileSize);

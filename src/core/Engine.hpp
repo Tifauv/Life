@@ -11,9 +11,8 @@
 class LIFECORE_EXPORT Engine : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(World*           world      READ world  WRITE setWorld)
-    Q_PROPERTY(const CellRules* cellRules              WRITE setCellRules)
-    Q_PROPERTY(uint             step       READ step                       NOTIFY stepFinished)
+    Q_PROPERTY(World* world  READ world  WRITE setWorld)
+    Q_PROPERTY(uint   step   READ step                   NOTIFY stepFinished)
 
 public:
     explicit Engine(QObject* p_parent = nullptr);
