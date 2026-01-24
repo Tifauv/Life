@@ -3,7 +3,7 @@
 # Name of the development container
 NAME=dev-life
 
-# List of packages to install inside the container
+# List of packages required in the container
 PKGS="cmake
     extra-cmake-modules
     qt6-qtbase-devel
@@ -16,6 +16,13 @@ PKGS="cmake
     kf6-kiconthemes-devel
     kf6-qqc2-desktop-style"
 
-toolbox create "${NAME}" --distro fedora --release 43
+# Create the container only if it does not already exist
+exists=$(toolbox list --containers | awk '$2 == "dev-life"' | wc -l)
+if [[ $exists -eq 0 ]]
+then # Create the toolbox container
+    toolbox create "${NAME}" --distro fedora --release 43
+fi
+
+# Update and initialize the container
 toolbox run -c "${NAME}" sudo dnf --assumeyes update
 toolbox run -c "${NAME}" sudo dnf --assumeyes install ${PKGS}
